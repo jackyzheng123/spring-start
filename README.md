@@ -8,3 +8,5 @@
 #### @ComponentScan
 #### @Conditional
 #### @Import
+
+### Bean的生命周期

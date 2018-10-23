@@ -1,6 +1,12 @@
 package com.zjx.entity;
 
-public class Person {
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
+public class Person implements InitializingBean, DisposableBean {
 
 	private String name;
 	private Integer age;
@@ -28,10 +34,49 @@ public class Person {
 
 	public Person() {
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Person [name=" + name + ", age=" + age + "]";
 	}
+	
+	/**
+	 * 指定Person初始化方法
+	 */
+	public void initPerson(){
+		System.out.println("指定Person初始化方法...");
+	}
+	
+	/**
+	 * 指定Person销毁方法
+	 */
+	public void destroyPerson(){
+		System.out.println("指定Person销毁方法...");
+	}
 
+	/**
+	 * 实现InitializingBean初始化bean
+	 */
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out.println("实现InitializingBean初始化bean...");
+	}
+
+	/**
+	 * 实现DisposableBean销毁bean
+	 */
+	@Override
+	public void destroy() throws Exception {
+		System.out.println("实现DisposableBean销毁bean...");
+	}
+
+	@PostConstruct
+	public void initBean() {
+		System.out.println("使用JSR250注解 @PostConstruct初始化bean");
+	}
+	
+	@PreDestroy
+	public void destroyBean(){
+		System.out.println("使用JSR250注解 @PreDestroy销毁bean");
+	}
 }
