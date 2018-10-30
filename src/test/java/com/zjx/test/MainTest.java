@@ -6,8 +6,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.Environment;
 
+import com.zjx.config.AwareConfig;
 import com.zjx.config.MainConfig;
 import com.zjx.entity.Blue;
+import com.zjx.entity.Color;
 import com.zjx.entity.Person;
 
 public class MainTest {
@@ -48,4 +50,18 @@ public class MainTest {
 		System.out.println(blue);
 	}
 	
+	
+	/**
+	 * test xxxAware
+	 */
+	@Test
+	public void testAware(){
+		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AwareConfig.class);
+		Color color = (Color) applicationContext.getBean("color");
+		
+		ApplicationContext context = color.getApplicationContext();
+		System.out.println(context == applicationContext);
+		
+		System.out.println(color.getBeanFactory());
+	}
 }
