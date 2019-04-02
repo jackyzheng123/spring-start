@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 构造器参数循环依赖 -->
+    <!--<bean id="a" class="com.zjx.entity.StudentA">
+        <constructor-arg name="studentB" ref="b" />
+    </bean>
+
+    <bean id="b" class="com.zjx.entity.StudentB">
+        <constructor-arg name="studentC" ref="c" />
+    </bean>
+
+    <bean id="c" class="com.zjx.entity.StudentC">
+        <constructor-arg name="studentA" ref="a" />
+    </bean>-->
+
+    <!-- setter方式单例 -->
+    <!--<bean id="a" class="com.zjx.entity.StudentA" scope="singleton">
+        <property name="studentB" ref="b" />
+    </bean>
+
+    <bean id="b" class="com.zjx.entity.StudentB" scope="singleton">
+        <property name="studentC" ref="c" />
+    </bean>
+
+    <bean id="c" class="com.zjx.entity.StudentC" scope="singleton">
+        <property name="studentA" ref="a" />
+    </bean>-->
+
+    <!-- setter方式多例 -->
+    <bean id="a" class="com.zjx.entity.StudentA" scope="prototype">
+        <property name="studentB" ref="b" />
+    </bean>
+
+    <bean id="b" class="com.zjx.entity.StudentB" scope="prototype">
+        <property name="studentC" ref="c" />
+    </bean>
+
+    <bean id="c" class="com.zjx.entity.StudentC" scope="prototype">
+        <property name="studentA" ref="a" />
+    </bean>
+</beans>
