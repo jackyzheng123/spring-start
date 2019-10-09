@@ -1,11 +1,14 @@
 package com.zjx.test;
 
+import com.zjx.entity.StudentA;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @Description Spring Bean的循环依赖
  * <p>
+ *     Caused by: org.springframework.beans.factory.BeanCurrentlyInCreationException
+ *
  * spring管理StudentA、StudentB、StudentC，循环依赖：A依赖B，B依赖C，C依赖A
  * @Author Carson Cheng
  * @Date 2019/4/2 9:58
@@ -16,7 +19,8 @@ public class BeanCircleDependenceTest {
     /*
         1. 构造器参数循环依赖:
            Spring容器先创建单例StudentA，StudentA依赖StudentB，然后将A放在“当前创建Bean池”中，
-           此时创建StudentB,StudentB依赖StudentC ,然后将B放在“当前创建Bean池”中,此时创建StudentC，StudentC又依赖StudentA，
+           此时创建StudentB,StudentB依赖StudentC ,然后将B放在“当前创建Bean池”中,
+           此时创建StudentC，StudentC又依赖StudentA，
            但是，此时StudentA,StudentB已经在池中，所以会报错，因为在池中的Bean都是未初始化完的，所以会依赖错误，（初始化完的Bean会从池中移除）
 
         2. setter方式单例，默认方式:
@@ -40,6 +44,8 @@ public class BeanCircleDependenceTest {
     */
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("students.xml");
-        System.out.println(context.getBean("a"));
+        StudentA a = (StudentA) context.getBean("a");
+        StudentA a1 = (StudentA) context.getBean("a");
+        System.out.println(a == a1);
     }
 }
